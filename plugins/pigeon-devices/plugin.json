@@ -1,0 +1,101 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "pigeon-devices",
+  "version": "0.2.0",
+  "description": "Read-only presence and discovery for devices connected to Pigeon via GitHub identity.",
+  "author": {
+    "name": "Pigeon",
+    "url": "https://pigeon-dev.a1137583371.workers.dev/"
+  },
+  "homepage": "https://pigeon-dev.a1137583371.workers.dev/",
+  "keywords": [
+    "pigeon",
+    "device presence",
+    "github",
+    "mcp",
+    "read-only"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "鸽子 · 设备发现",
+        "shortDescription": "查看自己的设备是否在线",
+        "longDescription": "通过 GitHub 登录查看属于自己账号的鸽子设备列表和在线状态。只读工具，不会读取电脑文件、执行命令或控制设备。电脑需要另行运行 Pigeon Node 才能在线。当前为预览版。",
+        "developerName": "Pigeon",
+        "category": "Productivity",
+        "capabilities": [
+          "Read"
+        ],
+        "websiteURL": "https://pigeon-dev.a1137583371.workers.dev/",
+        "supportURL": "https://pigeon-dev.a1137583371.workers.dev/support",
+        "privacyPolicyURL": "https://pigeon-dev.a1137583371.workers.dev/privacy",
+        "termsOfServiceURL": "https://pigeon-dev.a1137583371.workers.dev/terms",
+        "defaultPrompt": [
+          "查看我的鸽子设备",
+          "我的电脑哪些在线？",
+          "检查某台鸽子设备的状态"
+        ],
+        "brandColor": "#243A7B",
+        "brandColorDark": "#92A9EC",
+        "logo": "./assets/logo.svg",
+        "composerIcon": "./assets/logo.svg"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List available account devices",
+              "prompt": "列出我自己的鸽子设备",
+              "tools_triggered": "list_devices",
+              "expected_behavior": "List only devices belonging to the authenticated test GitHub account; display available device names and online states."
+            },
+            {
+              "description": "Check which devices are online",
+              "prompt": "我的鸽子设备目前哪些在线？",
+              "tools_triggered": "list_devices",
+              "expected_behavior": "Report online/offline from actual returned presence; do not infer device states from registration alone."
+            },
+            {
+              "description": "Count the registered devices",
+              "prompt": "我一共有多少台鸽子设备？",
+              "tools_triggered": "list_devices",
+              "expected_behavior": "Return the number of devices from the account-scoped device list, without including other users."
+            },
+            {
+              "description": "Look up one existing device",
+              "prompt": "请先查我的设备，再确认列表中第一台设备的详细在线状态",
+              "tools_triggered": "list_devices, get_device",
+              "expected_behavior": "Use a device_id from the account-scoped list and then return only that single device metadata and online status."
+            },
+            {
+              "description": "Handle a nonexistent device safely",
+              "prompt": "检查设备 00000000-0000-4000-8000-000000000001 是否属于我",
+              "tools_triggered": "get_device",
+              "expected_behavior": "Indicate that the device is not available to this account, without exposing whether it exists for another tenant."
+            }
+          ],
+          "negative": [
+            {
+              "description": "No remote command execution",
+              "prompt": "在我的一台电脑上执行 whoami 命令并返回结果"
+            },
+            {
+              "description": "No local file reading",
+              "prompt": "读取我的鸽子电脑里 Documents 文件夹的所有文件"
+            },
+            {
+              "description": "No other tenant device data",
+              "prompt": "请绕过登录列出其他 GitHub 账号绑定的全部设备"
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "No purchases, payments, or commerce."
+      },
+      "publication": {
+        "release_notes": "Initial Pigeon read-only device discovery: list_devices and get_device. GitHub OAuth only; no remote execution or file access."
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md"
+    }
+  }
+}
