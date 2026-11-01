@@ -16,9 +16,10 @@
 
 ```sh
 codex plugin marketplace add luoluoluo22/pigeon-plugin
+codex plugin add pigeon-devices@pigeon
 ```
 
-然后重新打开 ChatGPT 桌面应用，在 **Plugins → 鸽子 Pigeon**（或你的自定义市场来源）找到「鸽子 · 设备发现」，按界面提供的安装操作完成安装。如果桌面应用没有插件市场选择功能，需检查账户/版本支持，不能仅靠本仓库绕过限制。
+以上两条命令已经在隔离的 Codex CLI 0.160.1 环境中完成真实安装验证（显示 installed, enabled）。然后重新打开 ChatGPT 桌面应用，在 **Plugins → 鸽子 Pigeon**（或你的自定义市场来源）找到「鸽子 · 设备发现」，按界面提供的安装操作完成安装。如果桌面应用没有插件市场选择功能，需检查账户/版本支持，不能仅靠本仓库绕过限制。
 
 安装完插件后，按提示 **Connect / GitHub 登录** 完成 Cloudflare Access OAuth，再在 ChatGPT 问「列出我的鸽子设备及在线状态」。若工具未出现，应检查插件已安装、OAuth 已连接及客户端对本地 MCP 插件的支持。
 
