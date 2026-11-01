@@ -1,0 +1,20 @@
+{
+  "name": "pigeon",
+  "interface": {
+    "displayName": "鸽子 Pigeon"
+  },
+  "plugins": [
+    {
+      "name": "pigeon-devices",
+      "source": {
+        "source": "local",
+        "path": "./plugins/pigeon-devices"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
