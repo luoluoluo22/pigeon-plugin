@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "pigeon": {
+      "type": "streamable-http",
+      "url": "https://pigeon-dev.a1137583371.workers.dev/v1/mcp",
+      "headers": {},
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "resource": "https://pigeon-dev.a1137583371.workers.dev/v1/mcp",
+            "authorizationServerBase": "https://luoluoluo222.cloudflareaccess.com",
+            "defaultScopes": []
+          }
+        }
+      }
+    }
+  }
+}
